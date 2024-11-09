@@ -55,3 +55,19 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "tailwindcss-rails", "~> 2.6"
+
+gem 'foreman', '~> 0.87.2'
+
+gem "activeadmin", "~> 3.2"
+
+gem "devise", "~> 4.9"
+
+gem "sassc-rails", "~> 2.1"
+
+gem "faker", "~> 3.1"
+
+gem 'ransack', "~> 4.1"
+
+gem 'kaminari', "~> 1.2"
