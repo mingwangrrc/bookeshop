@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get "reviews/index"
+  get "reviews/show"
+  get "pages/about"
+  get "genres/index"
+  get "genres/show"
+  get "books/index"
+  get "books/show"
+  get "authors/index"
+  get "authors/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
