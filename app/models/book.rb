@@ -7,4 +7,13 @@ class Book < ApplicationRecord
    validates :title, presence: true
    validates :description, presence: true
    validates :date, presence: true
+
+   def self.ransackable_associations(auth_object = nil)
+      ["authors", "authorships", "book_genres", "genres", "reviews"]
+    end
+
+    def self.ransackable_attributes(auth_object = nil)
+      ["title", "description", "date"]
+    end
+
 end
