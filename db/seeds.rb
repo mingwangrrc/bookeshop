@@ -7,46 +7,65 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+#AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 require 'faker'
-require 'csv'
-require 'net/http'
-require 'json'
-# Create Genres
+
+# Clear existing data
+AdminUser.destroy_all
+Author.destroy_all
+Book.destroy_all
+Genre.destroy_all
+Review.destroy_all
+Authorship.destroy_all
+BookGenre.destroy_all
+
+# Create admin user
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if AdminUser.count == 0
+
+# Create authors
 10.times do
-  Genre.create(name: Faker::Book.genre)
-end
-# Create Authors
-20.times do
-  Author.create(
+  Author.create!(
     name: Faker::Book.author,
-    bio: Faker::Lorem.paragraph
+    bio: Faker::Lorem.sentence
   )
 end
-# Create Books from an API (example: Open Library API)
-url = 'https://openlibrary.org/subjects/science_fiction.json?limit=20'
-uri = URI(url)
-response = Net::HTTP.get(uri)
-books = JSON.parse(response)["works"]
-books.each do |book|
-  b = Book.create(
-    title: book["title"],
+
+# Create genres
+5.times do
+  Genre.create!(
+    name: Faker::Book.genre
+  )
+end
+
+# Create books
+50.times do
+  book = Book.create!(
+    title: Faker::Book.title,
     description: Faker::Lorem.paragraph,
-    publication_date: Faker::Date.between(from: '1900-01-01', to: '2023-01-01')
+    date: Faker::Date.backward(days: 365) # Ensure 'date' column exists in books table
   )
-  # Associate random authors
-  b.authors << Author.order('RANDOM()').limit(2)
-  # Associate random genres
-  b.genres << Genre.order('RANDOM()').limit(2)
-end
-# Create Reviews for each book
-Book.all.each do |book|
-  5.times do
-    Review.create(
-      content: Faker::Lorem.paragraph,
+
+  # Create authorship
+  Authorship.create!(
+    author: Author.all.sample,
+    book: book
+  )
+
+  # Create book genres
+  BookGenre.create!(
+    book: book,
+    genre: Genre.all.sample
+  )
+
+  # Create reviews
+  3.times do
+    Review.create!(
+      content: Faker::Lorem.sentence,
       rating: rand(1..5),
       book: book
     )
   end
 end
+
+puts "Seeded #{Author.count} authors, #{Book.count} books, #{Genre.count} genres, #{Review.count} reviews, #{Authorship.count} authorships, #{BookGenre.count} book genres, #{AdminUser.count} admin users"

@@ -5,5 +5,6 @@ class Book < ApplicationRecord
    has_many :genres, through: :book_genres
    has_many :reviews
    validates :title, presence: true
-   validates :publication_date, presence: true
+   validates :description, presence: true
+   validates :date, presence: true
 end
