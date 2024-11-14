@@ -1,9 +1,9 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[show edit update destroy]
+  before_action :set_book, only: %i[show]
 
   def index
     @q = Book.ransack(params[:q])
-    @books = @q.result(distinct: true)
+    @books = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def show
