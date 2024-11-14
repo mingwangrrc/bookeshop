@@ -68,4 +68,25 @@ end
   end
 end
 
+# Create Books from an API
+require 'csv'
+require 'net/http'
+require 'json'
+
+url = 'https://openlibrary.org/subjects/science_fiction.json?limit=20'
+uri = URI(url)
+response = Net::HTTP.get(uri)
+books = JSON.parse(response)["works"]
+books.each do |book|
+  b = Book.create(
+    title: book["title"],
+    description: Faker::Lorem.paragraph,
+    date: Faker::Date.between(from: '1900-01-01', to: '2023-01-01')
+  )
+  # Associate random authors
+  b.authors << Author.order('RANDOM()').limit(2)
+  # Associate random genres
+  b.genres << Genre.order('RANDOM()').limit(2)
+end
+
 puts "Seeded #{Author.count} authors, #{Book.count} books, #{Genre.count} genres, #{Review.count} reviews, #{Authorship.count} authorships, #{BookGenre.count} book genres, #{AdminUser.count} admin users"
