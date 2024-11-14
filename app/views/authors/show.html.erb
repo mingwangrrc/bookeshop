@@ -1,7 +1,4 @@
 <h1 class="text-3xl font-bold mb-4"><%= @author.name %></h1>
-<% if @author.photo.attached? %>
-  <%= image_tag @author.photo, class: "mb-4" %>
-<% end %>
 <p class="mb-4">Bio: <%= @author.bio %></p>
 <p class="mb-4">Books: </p>
 <ul class="list-disc list-inside">
