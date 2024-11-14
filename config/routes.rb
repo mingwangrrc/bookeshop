@@ -11,14 +11,14 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  resources :authors
-  resources :books
-  resources :genres
+  resources :authors, only: [:index, :show, :new, :create]
+  resources :books, only: [:index, :show, :new, :create]
+  resources :genres, only: [:index, :show, :new, :create]
   resources :reviews, only: [:index, :show]
-  get 'about', to: 'pages#about'
 
   get "welcome/index"
-  root "books#index"   # todo: this route cannot be access now
+  get 'about', to: 'pages#about'
+  root 'books#index'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
