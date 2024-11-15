@@ -10,6 +10,9 @@
 #AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 require 'faker'
+require 'csv'
+require 'net/http'
+require 'json'
 
 # Clear existing data
 AdminUser.destroy_all
@@ -21,7 +24,7 @@ Authorship.destroy_all
 BookGenre.destroy_all
 
 # Create admin user
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if AdminUser.count == 0
+AdminUser.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if AdminUser.count == 0
 
 # Create authors
 10.times do
@@ -69,10 +72,6 @@ end
 end
 
 # Create Books from an API
-require 'csv'
-require 'net/http'
-require 'json'
-
 url = 'https://openlibrary.org/subjects/science_fiction.json?limit=20'
 uri = URI(url)
 response = Net::HTTP.get(uri)
