@@ -25,7 +25,7 @@ ActiveAdmin.register Book do
     column :authors do |book|
       book.authors.map(&:name).join(", ")
     end
-    column :genres do |genre|
+    column :genres do |book|
       book.genres.map(&:name).join(",")
     end
     actions
