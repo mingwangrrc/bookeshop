@@ -14,7 +14,7 @@ ActiveAdmin.register Book do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  permit_params :title, :description, :date
+  permit_params :title, :description, :date, :images
 
   index do
     selectable_column
@@ -32,5 +32,47 @@ ActiveAdmin.register Book do
   filter :date
   filter :authors, as: :select, collection: proc { Author.all }
   filter :genres, as: :select, collection: proc { Genre.all }
+
+  form :html => { :enctype => "multipart/form-data" } do |f|
+    f.inputs "Details" do
+      f.input :title
+      f.input :description
+      f.input :date
+      f.input :authors
+
+      f.inputs do
+        f.input :images, as: :file, input_html: { multiple: true }
+      end
+
+    end
+    f.actions
+  end
+
+  show do
+    attributes_table do
+      row :title
+      row :description
+      row :date
+      row :publication_date
+      row :created_at
+      row :created_at
+      row :authors
+      row :images do |book|
+        ul do
+          book.images.each do |img|
+            li do
+              image_tag url_for(img)
+              # image_tag(img.picture.url(:thumb))
+            end
+          end
+         end
+
+        # image_tag url_for(book.images)
+        # for image in book.images
+        #   image_tag url_for(image)
+        # end
+      end
+    end
+  end
   
 end
