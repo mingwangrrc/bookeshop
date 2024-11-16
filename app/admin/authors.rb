@@ -35,7 +35,11 @@ ActiveAdmin.register Author do
       f.input :name
       f.input :bio
 
-      f.input :profile_picture, :as => :file, :hint => image_tag(f.object.profile_picture)
+      if f.object.profile_picture.attached?
+        f.input :profile_picture, :as => :file, :hint => image_tag(f.object.profile_picture)
+      else
+        f.input :profile_picture, :as => :file
+      end
       # f.input :profile_picture, :as => :file, :hint => f.template.image_tag(f.object.profile_picture.url(:medium))
     end
     f.actions
