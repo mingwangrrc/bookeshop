@@ -7,7 +7,13 @@ class AuthorsController < ApplicationController
   end
 
   def show
+    # @author = Author.all.with_attached_profile_picture.find(params[:id])
+    # @author = Author.all.with_attached_profile_picture.find(params[:id])
     @author = Author.find(params[:id])
+  end
+
+  def create
+
   end
 
   private
