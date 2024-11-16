@@ -25,6 +25,9 @@ ActiveAdmin.register Book do
     column :authors do |book|
       book.authors.map(&:name).join(", ")
     end
+    column :genres do |book|
+      book.genres.map(&:name).join(",")
+    end
     actions
   end
   filter :title
@@ -39,6 +42,7 @@ ActiveAdmin.register Book do
       f.input :description
       f.input :date
       f.input :authors
+      f.input :genres
 
       f.inputs do
         f.input :images, as: :file, input_html: { multiple: true }
@@ -57,6 +61,7 @@ ActiveAdmin.register Book do
       row :created_at
       row :created_at
       row :authors
+      row :genres
       row :images do |book|
         ul do
           book.images.each do |img|
