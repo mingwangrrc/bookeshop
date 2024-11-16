@@ -15,7 +15,7 @@ ActiveAdmin.register Author do
   #   permitted
   # end
   
-  permit_params :name, :bio
+  permit_params :name, :bio, :profile_picture
   index do
     selectable_column
     id_column
@@ -29,4 +29,30 @@ ActiveAdmin.register Author do
   filter :name
   filter :bio
   filter :books, as: :select, collection: proc { Book.all }
+
+  form :html => { :enctype => "multipart/form-data" } do |f|
+    f.inputs "Details" do
+      f.input :name
+      f.input :bio
+
+      f.input :profile_picture, :as => :file, :hint => image_tag(f.object.profile_picture)
+      # f.input :profile_picture, :as => :file, :hint => f.template.image_tag(f.object.profile_picture.url(:medium))
+    end
+    f.actions
+  end
+
+  # form partial: 'form'
+
+  show do
+    attributes_table do
+      row :name
+      row :bio
+      row :created_at
+      row :updated_at
+      row :profile_picture do |author|
+        image_tag url_for(author.profile_picture)
+      end
+    end
+  end
+
 end
