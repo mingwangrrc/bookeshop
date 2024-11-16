@@ -42,7 +42,7 @@ end
 end
 
 # Create books
-50.times do
+101.times do
   book = Book.create!(
     title: Faker::Book.title,
     description: Faker::Lorem.paragraph,
