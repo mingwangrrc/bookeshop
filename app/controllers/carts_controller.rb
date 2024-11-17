@@ -20,6 +20,9 @@ class CartsController < ApplicationController
     @current_cart.cart_items.create(book_id: @book.id)
   end
 
+  def index
+  end
+
   def show
   end
 
@@ -39,7 +42,7 @@ class CartsController < ApplicationController
           # Provide the exact Price ID (e.g. pr_1234) of the book you want to sell
           price_data: {
             currency: "usd",
-            unit_amount: (@current_cart.books.sum(&:price) * 100).to_i,
+            # unit_amount: (@current_cart.books.sum(&:price) * 100).to_i,
             book_data: {
               name: @current_cart.books.map(&:name).join(", ")
             },
