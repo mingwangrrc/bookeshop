@@ -7,7 +7,7 @@ class BuyNowController < ApplicationController
 
   private
 
-  def set_product
+  def set_book
     @book = Book.find(params[:book_id])
   end
 
