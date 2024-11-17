@@ -2,7 +2,7 @@ class Cart < ApplicationRecord
   has_many :cart_items
   has_many :books, through: :cart_items
 
-  before_action :set_secret_id
+  before_create :set_secret_id
 
   private
 

@@ -4,4 +4,11 @@ class BuyNowController < ApplicationController
 
   def success
   end
+
+  private
+
+  def set_product
+    @book = Book.find(params[:book_id])
+  end
+
 end
