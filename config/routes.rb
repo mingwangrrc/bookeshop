@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "buy_now/show"
+  get "buy_now/success"
   get "reviews/index"
   get "reviews/show"
   get "pages/about"
@@ -12,9 +14,20 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :authors, only: [:index, :show, :new, :create]
-  resources :books, only: [:index, :show, :new, :create]
+  resources :books do
+    # only: [:index, :show, :new, :create]
+    resource :buy_now, only: [:show, :create], controller: :buy_now do
+      get "success", on: :collection
+    end
+  end
   resources :genres, only: [:index, :show, :new, :create]
   resources :reviews, only: [:index, :show]
+  
+  resources :carts, only: [:create, :show, :destroy] do
+    get "checkout", on: :member, to: "carts#checkout"
+    post "stripe_session", on: :member, to: "carts#stripe_session"
+    get "success", on: :member, to: "carts#success"
+  end
 
   get "welcome/index"
   get 'about', to: 'pages#about'
