@@ -54,7 +54,7 @@ ActiveAdmin.register Author do
       row :created_at
       row :updated_at
       row :profile_picture do |author|
-        image_tag url_for(author.profile_picture)
+        image_tag url_for(author.profile_picture) if author.profile_picture.attached? 
       end
     end
   end

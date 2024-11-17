@@ -1,7 +1,24 @@
 <h1 class="text-3xl font-bold mb-4"><%= @book.title %></h1>
-<p><strong>Author:</strong> <%= link_to @book.authors.first.name, author_path(@book.authors.first) %></p>
-<p><strong>Genre:</strong> <%= link_to @book.genres.first.name, genre_path(@book.genres.first) %></p>
-<p><strong>Description:</strong> <%= @book.description %></p>
+
+<p>
+  <strong>Author:</strong> 
+  <%= link_to @book.authors.first.name, author_path(@book.authors.first) %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= link_to @book.genres.first.name, genre_path(@book.genres.first) %>
+</p>
+
+<div class="flex justify-between gap-8">
+  <%= link_to "Buy Now", product_buy_now_path(@book), class: "rounded-lg font-semibold p-4 text-center text-xl bg-yellow-400 hover:bg-yellow-500 w-full mr-auto" %>
+  <%= render "add_to_cart", book: @book %>
+</div>
+
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
 
 <% if @book.images.attached? %>
   <div>

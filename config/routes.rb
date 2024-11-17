@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "buy_now/show"
+  get "buy_now/success"
   get "reviews/index"
   get "reviews/show"
   get "pages/about"

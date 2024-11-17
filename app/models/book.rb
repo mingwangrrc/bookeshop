@@ -4,6 +4,7 @@ class Book < ApplicationRecord
    has_many :book_genres
    has_many :genres, through: :book_genres
    has_many :reviews
+   has_many :cart_items
    validates :title, presence: true
    validates :description, presence: true
    validates :date, presence: true
