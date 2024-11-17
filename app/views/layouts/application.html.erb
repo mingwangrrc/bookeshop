@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <meta name="stripe-pk" content="<%= Rails.application.credentials.dig(:stripe, :pk) %>">
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
 
   <body class="bg-gray-100 text-gray-800">
@@ -23,6 +25,11 @@
           <li><%= link_to 'Books', books_path, class: 'text-gray-700 hover:text-blue-600' %></li>
           <li><%= link_to 'Genres', genres_path, class: 'text-gray-700 hover:text-blue-600' %></li>
           <li><%= link_to 'Reviews', reviews_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+          <li>
+            <%= link_to carts_path(@current_cart.secret_id) do %>
+              <%= render "layouts/cart", cart: @current_cart %>
+            <% end %>
+          </li>
         </ul>
       </nav>
     </header>

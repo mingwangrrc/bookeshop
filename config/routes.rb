@@ -22,8 +22,9 @@ Rails.application.routes.draw do
   end
   resources :genres, only: [:index, :show, :new, :create]
   resources :reviews, only: [:index, :show]
+  # resources :carts, only: [:create, :index, :show, :destroy]
   
-  resources :carts, only: [:create, :show, :destroy] do
+  resources :carts, only: [:create, :index, :show, :destroy] do
     get "checkout", on: :member, to: "carts#checkout"
     post "stripe_session", on: :member, to: "carts#stripe_session"
     get "success", on: :member, to: "carts#success"

@@ -11,3 +11,12 @@
 }
 
 */
+
+
+@layer components {
+  @font-face {
+    font-family: "Broken";
+    src: url("/fonts/Broken.otf");
+  }
+}
+@import 'actiontext.css';

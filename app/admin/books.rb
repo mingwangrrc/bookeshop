@@ -14,12 +14,13 @@ ActiveAdmin.register Book do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  permit_params :title, :description, :date, :images
+  permit_params :title, :description, :price, :date, :images
 
   index do
     selectable_column
     id_column
     column :title
+    column :price
     column :description
     column :date
     column :authors do |book|
@@ -39,6 +40,7 @@ ActiveAdmin.register Book do
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs "Details" do
       f.input :title
+      f.input :price
       f.input :description
       f.input :date
       f.input :authors
@@ -55,6 +57,7 @@ ActiveAdmin.register Book do
   show do
     attributes_table do
       row :title
+      row :price
       row :description
       row :date
       row :publication_date
