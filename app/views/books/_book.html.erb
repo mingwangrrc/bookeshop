@@ -1,3 +1,6 @@
 <%= link_to book do %>
-  <p class="text-lg text-gray-50"> <%= book.title %> </p>
+  <div id="<%= dom_id book %>">
+    <%= image_tag book.images.first, class: "w-full h-80 object-cover rounded-lg hover:brightness-75 transition-all duration-250" if book.images.any? %>
+    <p class="text-lg text-black-50"> <%= book.title %> </p>
+  </div>
 <% end %>
