@@ -14,7 +14,7 @@ ActiveAdmin.register Book do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  permit_params :title, :description, :price, :date, :images
+  permit_params :title, :description, :price, :date, :image
 
   index do
     selectable_column
@@ -46,8 +46,10 @@ ActiveAdmin.register Book do
       f.input :authors
       f.input :genres
 
-      f.inputs do
-        f.input :images, as: :file, input_html: { multiple: true }
+      if f.object.image.attached?
+        f.input :image, :as => :file, :hint => image_tag(f.object.image)
+      else
+        f.input :image, :as => :file
       end
 
     end
@@ -65,20 +67,8 @@ ActiveAdmin.register Book do
       row :created_at
       row :authors
       row :genres
-      row :images do |book|
-        ul do
-          book.images.each do |img|
-            li do
-              image_tag url_for(img)
-              # image_tag(img.picture.url(:thumb))
-            end
-          end
-         end
-
-        # image_tag url_for(book.images)
-        # for image in book.images
-        #   image_tag url_for(image)
-        # end
+      row :image do |book|
+        image_tag url_for(book.image) if book.image.attached? 
       end
     end
   end
