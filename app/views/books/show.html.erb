@@ -20,11 +20,9 @@
   <%= @book.description %>
 </p>
 
-<% if @book.images.attached? %>
+<% if @book.image.attached? %>
   <div>
-    <% @book.images.each do |image| %>
-      <%= image_tag image %>
-    <% end %>
+    <%= image_tag @book.image %>
   </div>
 <% end %>
 
