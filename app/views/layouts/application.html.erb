@@ -25,10 +25,8 @@
           <li><%= link_to 'Books', books_path, class: 'text-gray-700 hover:text-blue-600' %></li>
           <li><%= link_to 'Genres', genres_path, class: 'text-gray-700 hover:text-blue-600' %></li>
           <li><%= link_to 'Reviews', reviews_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li>
-            <%= link_to carts_path(@current_cart.secret_id) do %>
+          <li><%= link_to 'Cart', carts_path(@current_cart.secret_id), class: 'text-gray-700 hover:text-blue-600' %>
               <%= render "layouts/cart", cart: @current_cart %>
-            <% end %>
           </li>
         </ul>
       </nav>
