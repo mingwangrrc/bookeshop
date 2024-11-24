@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+# source "https://gems.ruby-china.com/"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2"
@@ -73,3 +74,7 @@ gem 'ransack', "~> 4.1"
 gem 'kaminari', "~> 1.2"
 
 gem "stripe", "~> 12.0"
+
+gem "nokogiri", "~> 1.16"
+gem "open-uri", "~> 0.5.0"
+gem "stringio", "~> 3.1.1"
