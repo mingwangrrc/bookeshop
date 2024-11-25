@@ -19,7 +19,7 @@
       <div>
         <%= render "books/book", book: book %>
         <br/>
-        <%= link_to "Remove from cart", cart_path(@current_cart.secret_id, book_id: book.id), class: "p-2 rounded-lg bg-indigo-500 text-white",
+        <%= link_to "Remove from cart", cart_path(@current_cart.secret_id, book_id: book.id), class: "p-2 rounded-lg bg-blue-500",
             data: { turbo_method: "delete" } %>
       </div>
     <% end %>

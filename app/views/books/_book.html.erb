@@ -2,6 +2,6 @@
   <div id="<%= dom_id book %>">
     <%= image_tag book.image, class: "w-full h-80 object-cover rounded-lg hover:brightness-75 transition-all duration-250" if book.image.attached? %>
     <p class="text-lg text-black-50"> <%= book.title %> </p>
-    <p class="text-lg text-gray-100"> <%= number_to_currency book.price %> </p>
+    <p class="text-lg text-black-100"> <%= number_to_currency book.price %> </p>
   </div>
 <% end %>
