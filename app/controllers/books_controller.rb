@@ -6,6 +6,20 @@ class BooksController < ApplicationController
     @books = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
+  def news
+    date = Date.today
+    range = ((date - 3).beginning_of_day)..(date.end_of_day)
+    @q = Book.where(created_at: range).ransack(params[:q])
+    @books = @q.result(distinct: true).page(params[:page]).per(10)
+  end
+
+  def recents
+    date = Date.today
+    range = ((date - 3).beginning_of_day)..(date.end_of_day)
+    @q = Book.where(updated_at: range).ransack(params[:q])
+    @books = @q.result(distinct: true).page(params[:page]).per(10)
+  end
+
   def show
     @book = Book.find(params[:id])
   end
