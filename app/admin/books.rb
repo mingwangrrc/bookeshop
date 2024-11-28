@@ -14,7 +14,7 @@ ActiveAdmin.register Book do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  permit_params :title, :description, :price, :date, :image
+  permit_params :title, :description, :price, :date, :image, author_ids: [], genre_ids: []
 
   index do
     selectable_column
@@ -43,8 +43,8 @@ ActiveAdmin.register Book do
       f.input :price
       f.input :description
       f.input :date
-      f.input :authors
-      f.input :genres
+      f.input :authors, collection: Author.all.map{|a| [a.name, a.id]}
+      f.input :genres, collection: Genre.all.map{|g| [g.name, g.id]}
 
       if f.object.image.attached?
         f.input :image, :as => :file, :hint => image_tag(f.object.image)
