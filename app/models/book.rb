@@ -14,7 +14,7 @@ class Book < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "description", "date"]
+    ["title", "description", "date", "genre"]
   end
 
   has_one_attached :image
