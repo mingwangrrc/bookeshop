@@ -1,7 +1,14 @@
+<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 <%= link_to book do %>
-  <div id="<%= dom_id book %>">
-    <%= image_tag book.image, class: "w-full h-80 object-cover rounded-lg hover:brightness-75 transition-all duration-250" if book.image.attached? %>
-    <p class="text-lg text-black-50"> <%= book.title %> </p>
-    <p class="text-lg text-black-100"> <%= number_to_currency book.price %> </p>
-  </div>
+  <%= book.title %>
 <% end %>
+</th>
+<td class="px-6 py-4">
+  <%= link_to book.authors.first.name, author_path(book.authors.first) %>
+</td>
+<td class="px-6 py-4">
+  <%= link_to book.genres.first.name, genre_path(book.genres.first) %>
+</td>
+<td class="px-6 py-4">
+  <%= number_to_currency book.price %>
+</td>

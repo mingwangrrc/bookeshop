@@ -1,7 +1,8 @@
 STRIPE_SUPPORTED_COUNTRIES = ["AU", "AT", "BE", "BG", "CA", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HK", "HU", "IE", "IT", "JP", "LV", "LT", "LU", "MT", "NL", "NZ", "NO", "PL", "PT", "RO", "SG", "SK", "SI", "ES", "SE", "CH", "GB", "US"].freeze
 
 class CartsController < ApplicationController
-  before_action :set_book, only: [:create, :destroy]
+  protect_from_forgery with: :null_session
+  before_action :set_book, only: [:create, :destroy, :increase, :decrease]
 
   def create
     @current_cart.cart_items.create(book_id: @book.id)
@@ -38,8 +39,27 @@ class CartsController < ApplicationController
   def destroy
     @cart_item = @current_cart.cart_items.find_by_book_id(@book.id)
     @cart_item.destroy
-    redirect_to cart_path(@current_cart)
+    redirect_to carts_path(@current_cart.secret_id)
   end
+
+  def increase
+    @cart_item = @current_cart.cart_items.find_by_book_id(@book.id)
+    @cart_item.quantity += 1
+    @cart_item.save
+
+    redirect_to carts_path(@current_cart.secret_id)
+  end
+
+  def decrease
+    @cart_item = @current_cart.cart_items.find_by_book_id(@book.id)
+    @cart_item.quantity -= 1
+    @cart_item.save
+
+    @cart_item.destroy if @cart_item.quantity < 1
+
+    redirect_to carts_path(@current_cart.secret_id)
+  end
+
 
   def stripe_session
     session = Stripe::Checkout::Session.create({

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     get "checkout", on: :member, to: "carts#checkout"
     post "stripe_session", on: :member, to: "carts#stripe_session"
     get "success", on: :member, to: "carts#success"
+    post "increase", on: :member, to: "carts#increase"
+    post "decrease", on: :member, to: "carts#decrease"
   end
 
   get "welcome/index"
