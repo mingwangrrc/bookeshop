@@ -73,7 +73,7 @@ gem 'ransack', "~> 4.1"
 
 gem 'kaminari', "~> 1.2"
 
-gem "stripe", "~> 12.0"
+gem "stripe", "~> 13.2"
 
 gem "nokogiri", "~> 1.16"
 gem "open-uri", "~> 0.5.0"
