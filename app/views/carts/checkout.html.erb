@@ -3,22 +3,22 @@
     <h1 class="text-5xl font-broken text-indigo-900 text-center"> Your Cart </h1>
     <p> You have <%= @current_cart.cart_items.count %> books in your cart </p>
     <div class="mx-auto flex flex-col gap-2"> 
-      <% @current_cart.books.each.with_index do |book, index| %>
+      <% @current_cart.cart_items.each.with_index do |cart_item, index| %>
         <div class="flex gap-2 bg-gray-700/75 p-2">
           <span class="px-4 rounded-full bg-gray-500 text-gray-100"> <%= index + 1 %> </span>
-          <p class="text-black-100 text-bold"> <%= book.title %> </p>
-          （<p class="text-green-500"> <%= number_to_currency book.price %> </p>）
+          <p class="text-black-100 text-bold"> <%= cart_item.book.title %> </p>
+          <p class="text-black-100 text-bold"> * <%= cart_item.quantity %> </p>
+          （<p class="text-green-500"> <%= number_to_currency cart_item.book.price*cart_item.quantity %> </p>）
         </div>
       <% end %>
     </div>
 
     <div data-controller="stripe-checkout" data-stripe-checkout-url-value="<%= stripe_session_cart_path(@current_cart.secret_id) %>"> 
 
-
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-      data-description="A month's subscription"
+      data-description="Checkout for books"
       data-amount="500"
       data-locale="auto">
     </script>

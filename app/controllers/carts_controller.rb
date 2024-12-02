@@ -17,23 +17,25 @@ class CartsController < ApplicationController
   def checkout
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      ui_mode: 'embedded',
+      # customer_email: "yarving@qq.com",  # Pass user's email here
+      mode: 'payment',
+      # ui_mode: 'embedded',
       line_items: [{
           # Provide the exact Price ID (e.g. pr_1234) of the book you want to sell
           price_data: {
             currency: "usd",
-            unit_amount: (@current_cart.books.sum(&:price) * 100).to_i,
+            unit_amount: (@current_cart.cart_items.sum{|item| item.book.price * item.quantity} * 100).to_i,
             product_data: {
               name: @current_cart.books.map(&:title).join(", ")
             },
           },
-          quantity: 1,
+          quantity: @current_cart.cart_items.sum(&:quantity).to_i,
         }],
         shipping_address_collection: {
           allowed_countries: STRIPE_SUPPORTED_COUNTRIES
         },
-        mode: 'payment',
-        return_url: success_cart_url(@current_cart.secret_id),
+        success_url: success_cart_url(@current_cart.secret_id),
+        # cancel_url: carts_path(@current_cart.secret_id),
     })
   end
 
@@ -69,12 +71,14 @@ class CartsController < ApplicationController
           # Provide the exact Price ID (e.g. pr_1234) of the book you want to sell
           price_data: {
             currency: "usd",
-            unit_amount: (@current_cart.books.sum(&:price) * 100).to_i,
+            # unit_amount: (@current_cart.books.sum(&:price) * 100).to_i,
+            unit_amount: (@current_cart.cart_items.sum{|item| item.book.price * item.quantity} * 100).to_i,
             book_data: {
               name: @current_cart.books.map(&:title).join(", ")
             },
           },
-          quantity: 1,
+          # quantity: 1,
+          quantity: @current_cart.cart_items.sum(&:quantity).to_i,
         }],
         shipping_address_collection: {
           # allowed_countries: STRIPE_SUPPORTED_COUNTRIES
