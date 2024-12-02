@@ -16,6 +16,7 @@ class CartsController < ApplicationController
 
   def checkout
     session = Stripe::Checkout::Session.create({
+      payment_method_types: ['card'],
       ui_mode: 'embedded',
       line_items: [{
           # Provide the exact Price ID (e.g. pr_1234) of the book you want to sell
