@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Bookstore</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -10,29 +11,37 @@
     <%= javascript_importmap_tags %>
     <meta name="stripe-pk" content="<%= Rails.application.credentials.dig(:stripe, :pk) %>">
     <script src="https://js.stripe.com/v3/"></script>
-  </head>
+</head>
 
-  <body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 text-gray-800">
     <header class="bg-white shadow">
-      <nav class="container mx-auto px-5 py-3 flex justify-between items-center">
-        <div class="text-xl font-bold">
-          <%= link_to 'Bookstore', root_path %>
-        </div>
-        <ul class="flex space-x-4">
-          <li><%= link_to 'Home', root_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li><%= link_to 'About', about_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li><%= link_to 'Authors', authors_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li><%= link_to 'Books', books_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li><%= link_to 'Genres', genres_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li><%= link_to 'Reviews', reviews_path, class: 'text-gray-700 hover:text-blue-600' %></li>
-          <li><%= link_to 'Cart', carts_path(@current_cart.secret_id), class: 'text-gray-700 hover:text-blue-600' %>
-              <%= render "layouts/cart", cart: @current_cart %>
-          </li>
-        </ul>
-      </nav>
+        <nav class="container mx-auto px-5 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold">
+                <%= link_to 'Bookstore', root_path %>
+            </div>
+            <ul class="flex space-x-4">
+                <li><%= link_to 'Home', root_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+                <li><%= link_to 'About', about_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+                <li><%= link_to 'Authors', authors_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+                <li><%= link_to 'Books', books_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+                <li><%= link_to 'Genres', genres_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+                <li><%= link_to 'Reviews', reviews_path, class: 'text-gray-700 hover:text-blue-600' %></li>
+                <li><%= link_to 'Cart', carts_path(@current_cart.secret_id), class: 'text-gray-700 hover:text-blue-600' %>
+                    <%= render "layouts/cart", cart: @current_cart %>
+                </li>
+                <% if @current_user %>
+                <%= link_to('logout', destroy_user_session_path, :method => :delete) %> |
+                <%= link_to('change password', edit_registration_path(:user)) %>
+                <% else %>
+                <%= link_to('register', new_admin_admin_user_path(:user)) %> |
+                <%= link_to('login', new_admin_user_session_path(:user)) %>
+                <% end %>
+            </ul>
+        </nav>
     </header>
     <main class="container mx-auto px-5 py-5">
-      <%= yield %>
+        <%= yield %>
     </main>
-  </body>
+</body>
+
 </html>
