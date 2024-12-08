@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "books/news"
   get "books/recents"
   get "buy_now/show"
