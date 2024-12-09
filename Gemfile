@@ -75,6 +75,6 @@ gem 'kaminari', "~> 1.2"
 
 gem "stripe", "~> 12.0"
 
-gem "nokogiri", "~> 1.16"
+gem "nokogiri", "~> 1.17"
 gem "open-uri", "~> 0.5.0"
 gem "stringio", "~> 3.1.1"
