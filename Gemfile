@@ -57,7 +57,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "tailwindcss-rails", "~> 2.6"
+gem "tailwindcss-rails", "~> 3.2"
 
 gem 'foreman', '~> 0.87.2'
 
