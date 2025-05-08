@@ -23,6 +23,7 @@ ActiveAdmin.register AdminUser do
       f.input :password_confirmation
     end
     f.actions
+    asdasdasdasdasdsamc
   end
 
 end
